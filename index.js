@@ -1,4 +1,3 @@
-const sketchArea = document.querySelector('.sketch-area');
 
 function makeGrid()
 {    
@@ -26,6 +25,7 @@ function makeGrid()
         const div = document.createElement('div'); 
         div.style.height = `${sideLength}px`;
         div.style.width = `${sideLength}px`;
+        div.classList.add('box');
         div.addEventListener('mouseover', transition);
         sketchArea.appendChild(div);
     }
@@ -33,8 +33,47 @@ function makeGrid()
 
 function transition()
 {
-    this.style.background = 'black';
+    if(eraseSwitch)
+    {
+        this.style.background = 'white';
+    }
+    else
+    { 
+        this.style.background = 'black';
+    }
 }
+
+function eraseToggle()
+{
+    if(eraseSwitch === 0)
+    eraseSwitch = 1;
+    else
+    eraseSwitch = 0;
+}
+
+function eraseAll()
+{
+    const boxes = document.querySelectorAll('.box');
+    boxes.forEach( (div) => div.style.background = "white" );
+}
+
+function startDrawing()
+{
+    eraseSwitch = 0;
+}
+
+const sketchArea = document.querySelector('.sketch-area');
 
 const gridButtons = document.querySelectorAll('.grid-button');
 gridButtons.forEach( (button) => button.addEventListener('click',makeGrid) );
+
+let eraseSwitch = 0;
+const eraseButton1 = document.querySelector('.erase.one');
+eraseButton1.addEventListener('click', eraseToggle);
+
+const eraseButton2 = document.querySelector('.erase.all');
+eraseButton2.addEventListener('click', eraseAll);
+
+const draw = document.querySelector('.draw');
+draw.addEventListener('click', startDrawing);
+
