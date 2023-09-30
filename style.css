@@ -4,16 +4,33 @@ body {
     background-color: rgb(243, 208, 142);
 }
 
+.layout {
+    display: flex;
+    justify-content: center;
+}
+
+.outer {
+    height: 700px;
+    width: 800px;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;
+    box-shadow: 10px 10px 10px;
+    border: 1px solid black;
+}
+
 h1 {
     text-align: center;
     font-size: 64px;
     margin-top: 48px;
+    color: orchid;
+    color: rgb(110, 110, 244);
+    font-weight: 900;
 }
 
-.main-area {
-    display: flex;
-    justify-content: center;
-}
 
 .sketch-area {
     height: 576px;
@@ -26,7 +43,31 @@ h1 {
     padding: 0px;
 }
 
-.palette {
+.function {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    height: 62px;
+    min-height: 62px;
+}
+
+.button , .button-transition{
+    width: 95px;
+    min-width: 95px;
+    height: 30px;
+    min-height: 30px;
+    padding: 0px;
+    font-size: 14px;
+    background-color: yellow;
+    color: darkred;
+    border: none;
+    font-weight: 600;
+}
+
+.button-transition {
+    background-color: orchid;
+    color: yellow;
 }
 
 /*#slider {

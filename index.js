@@ -2,7 +2,7 @@
 function makeGrid()
 {    
     sketchArea.innerHTML = '';
-    let side;
+    let side = 16;
     if( this.textContent === '16x16' )
     {
         side = 16;
@@ -33,7 +33,11 @@ function makeGrid()
 
 function transition()
 {
-    if(eraseSwitch)
+    if(randomColorSwitch)
+    {
+        this.style.background = getRandomColor();
+    }
+    else if(eraseSwitch)
     {
         this.style.background = 'white';
     }
@@ -45,6 +49,7 @@ function transition()
 
 function eraseToggle()
 {
+    randomColorSwitch = 0;
     if(eraseSwitch === 0)
     eraseSwitch = 1;
     else
@@ -60,6 +65,27 @@ function eraseAll()
 function startDrawing()
 {
     eraseSwitch = 0;
+    randomColorSwitch = 0;
+}
+
+function startRandomDrawing()
+{
+    eraseSwitch = 0;
+    if(randomColorSwitch===0)
+    randomColorSwitch = 1;
+    else
+    randomColorSwitch = 0;
+}
+
+function getRandomColor()
+{
+    let maxVal = 0xFFFFFF; //Largest HexaDecimal color
+    return '#' + Math.floor( Math.random() * maxVal).toString(16).padStart(6,0).toUpperCase();
+}
+
+function removeClass()
+{
+    buttons.forEach( (button) => button.classList.remove('button-transition') );
 }
 
 const sketchArea = document.querySelector('.sketch-area');
@@ -68,6 +94,8 @@ const gridButtons = document.querySelectorAll('.grid-button');
 gridButtons.forEach( (button) => button.addEventListener('click',makeGrid) );
 
 let eraseSwitch = 0;
+let randomColorSwitch = 0;
+
 const eraseButton1 = document.querySelector('.erase.one');
 eraseButton1.addEventListener('click', eraseToggle);
 
@@ -77,3 +105,13 @@ eraseButton2.addEventListener('click', eraseAll);
 const draw = document.querySelector('.draw');
 draw.addEventListener('click', startDrawing);
 
+const randomDraw = document.querySelector('.psychedellic');
+randomDraw.addEventListener('click', startRandomDrawing);
+
+const buttons = document.querySelectorAll('.button');
+buttons.forEach( function(button)
+{ 
+    button.addEventListener('click', function(){ removeClass(); button.classList.add('button-transition'); } 
+) } );
+
+makeGrid();
